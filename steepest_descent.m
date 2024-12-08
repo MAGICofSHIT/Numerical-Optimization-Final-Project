@@ -14,14 +14,11 @@ function [x_min, f_min, iter] = steepest_descent(f, x0, tol)
     x = x0;        % 当前解
     iter = 0;      % 迭代次数
     
-    % 梯度计算函数
-    grad_f = @(x) num_grad(f, x);  % 使用数值梯度方法计算梯度
-    
     while true
         iter = iter + 1;
         
         % 计算梯度
-        grad = grad_f(x);
+        grad = num_grad(f, x);
         
         % 计算步长（采用线性搜索找到最优步长）
         alpha = linear_search(f, x, grad);
