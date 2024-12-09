@@ -1,41 +1,36 @@
-function [x_min, f_min, iter] = steepest_descent(f, x0, tol)
-    % 最速下降法
-    % 输入：
-    %   f        - 目标函数的句柄，形式如 f(x)
-    %   x0       - 初始点
-    %   tol      - 收敛阈值（梯度的范数小于 tol 时停止）
-    %
-    % 输出：
-    %   x_min    - 最优解
-    %   f_min    - 最优解对应的目标函数值
-    %   iter     - 迭代次数
-    
-    % 初始化
-    x = x0;        % 当前解
-    iter = 0;      % 迭代次数
-    
-    while true
-        iter = iter + 1;
-        
-        % 计算梯度
-        grad = num_grad(f, x);
-        
-        % 计算步长（采用线性搜索找到最优步长）
-        alpha = linear_search(f, x, grad);
-        
-        % 更新解
-        x = x - alpha * grad;
-        
-        % 计算目标函数值
-        f_val = f(x);
-        
-        % 检查收敛条件（梯度的范数小于 tol）
-        if norm(grad) < tol
+function [x, f_val, iter, f_vals] = steepest_descent(func, x0, n, tol, max_iter, sigma1, rho, alpha_init)
+% 最速下降法求解无约束优化问题
+% func: 目标函数句柄
+% x0: 初始点
+% n: 输入向量长度
+% tol: 收敛精度
+% max_iter: 最大迭代次数
+% sigma1: Armijo条件参数
+% rho: 步长缩减因子
+% alpha_init: 初始步长
+% 返回值:
+%   x: 最优解
+%   f_val: 最优解对应的函数值
+%   iter: 迭代次数
+%   f_vals: 每次迭代的函数值
+
+    x = x0;          % 初始化变量
+    iter = 0;        % 初始化迭代计数器
+    f_vals = [];     % 用于存储每次迭代的函数值
+
+    while iter < max_iter
+        f = func(x, n);         % 计算当前函数值
+        f_vals = [f_vals, f];   % 记录当前函数值
+        grad = num_grad(func, x, n); % 使用中心差分法计算梯度
+        if norm(grad) < tol     % 如果梯度的范数小于阈值，停止迭代
             break;
         end
+        % 使用Armijo型线性搜索确定步长
+        alpha = line_search(func, x, grad, n, sigma1, rho, alpha_init);
+        % 更新变量
+        x = x - alpha * grad;   % 按负梯度方向更新变量
+        iter = iter + 1;        % 更新迭代次数
     end
-    
-    % 最优解和目标函数值
-    x_min = x;
-    f_min = f_val;
+
+    f_val = func(x, n);         % 计算最优解对应的函数值
 end

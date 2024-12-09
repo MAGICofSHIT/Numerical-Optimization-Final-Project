@@ -1,15 +1,19 @@
-function grad = num_grad(f, x)
-    % 数值梯度计算
-    % 使用中心差分法计算梯度
-    
-    epsilon = 1e-6;  % 小的扰动值
-    grad = zeros(size(x));  % 初始化梯度
-    
-    for i = 1:length(x)
-        x1 = x;
-        x2 = x;
-        x1(i) = x1(i) + epsilon;
-        x2(i) = x2(i) - epsilon;
-        grad(i) = (f(x1) - f(x2)) / (2 * epsilon);  % 中心差分
+function grad = num_grad(func, x, n)
+% 中心差分法计算梯度
+% func: 目标函数句柄
+% x: 当前点
+% n: 输入向量长度
+% 返回值:
+%   grad: 梯度向量
+
+    h = 1e-7; % 差分步长
+    grad = zeros(size(x)); % 初始化梯度向量
+
+    for i = 1:n
+        % 构造单位基向量
+        e = zeros(size(x));
+        e(i) = h;
+        % 中心差分公式计算梯度分量
+        grad(i) = (func(x + e, n) - func(x - e, n)) / (2 * h);
     end
 end
