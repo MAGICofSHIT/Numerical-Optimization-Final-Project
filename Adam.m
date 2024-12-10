@@ -1,113 +1,51 @@
-clc
-close all
-clearvars
-digits(32)%¼ÆËã¾«¶ÈÉèÖÃ£¬Ä¬ÈÏÖµÎª32
+function [x_opt, f_val, iter, f_vals, x_traj] = Adam(func, x0, n, tol, max_iter, alpha, beta1, beta2, epsilon)
+% Adamç®—æ³•å®žçŽ°
+% è¾“å…¥ï¼š
+%   func: ç›®æ ‡å‡½æ•°å¥æŸ„
+%   x0: åˆå§‹ç‚¹
+%   n: è¾“å…¥å‘é‡ç»´åº¦
+%   tol: æ”¶æ•›é˜ˆå€¼
+%   max_iter: æœ€å¤§è¿­ä»£æ¬¡æ•°
+%   alpha: å­¦ä¹ çŽ‡
+%   beta1: ä¸€é˜¶åŠ¨é‡è¡°å‡ç³»æ•°
+%   beta2: äºŒé˜¶åŠ¨é‡è¡°å‡ç³»æ•°
+%   epsilon: é˜²æ­¢é™¤é›¶çš„å°å€¼
+% è¾“å‡ºï¼š
+%   x_opt: æœ€ä¼˜ç‚¹
+%   f_val: æœ€ä¼˜å€¼
+%   iter: è¿­ä»£æ¬¡æ•°
+%   f_vals: æ¯æ¬¡è¿­ä»£çš„å‡½æ•°å€¼
+%   x_traj: å‚æ•°çš„è½¨è¿¹
 
-% ²âÊÔº¯Êý
-%x=sym('x',[20,1]);
- [f1,x]= function1(5);
-% [f2,x]= function2(3);
-% [f2,x]= function2(30);
-% [f3,x]= function3(3);
-% [f4,x]= function4(3);
-% [f5,x]= function4(3);
-
-
- x01=[-1.2,1,-1.2,1,-1.2]';
-% x02=[0.5,0.5,0.5]';
-% x02=[3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3]';
-% x03=[2,2,2]';
-% x04=[50,50]';
-
-ftt=f1;%²âÊÔº¯ÊýÑ¡Ôñ
-
-
-e=10^-5;%¾«¶È
-k=0;%²½Êý
-gama = 0.2;
-dt=sym('dt',[5,1]);%ÏÂ½µ·½Ïò·ûºÅ±äÁ¿
-syms at;%¾«È·ÏßÐÔËÑË÷²½³¤·ûºÅ±äÁ¿
-f_value=0;
-s=0;
-beta1 = 0.9;
-beta2 = 0.999;
-epsilon = 1e-8;
+    % åˆå§‹åŒ–å˜é‡
+    m = zeros(1, n); % ä¸€é˜¶åŠ¨é‡åˆå§‹åŒ–
+    v = zeros(1, n); % äºŒé˜¶åŠ¨é‡åˆå§‹åŒ–
+    x = x0; % å½“å‰å‚æ•°
+    t = 0; % è¿­ä»£è®¡æ•°
+    f_vals = []; % è®°å½•å‡½æ•°å€¼
+    x_traj = x; % è®°å½•è½¨è¿¹
     
-m = 0;
-v = 0;
-
-Armijo_o=0.5;
-Armijo_b=0.8;
-
-%µ±Î´´ïµ½¾«¶ÈÉè¶¨Ê±½øÐÐÔËËã
- xs(:,1)=x01;
-% xs(:,1)=x02;
-% xs(:,1)=x03;
-% xs(:,1)=x04;
-d=double(subs(-gradient(ftt, x),x,xs(:,1)));%³õÊ¼ÏÂ½µ·½Ïò
-e_now(1,1)=vpa(norm(subs(gradient(ftt, x),x,xs(:,1))));
-f_value(1,1)=vpa(subs(ftt,x,xs(:,1)));
-% Yit=num2str(double(f_value(1,1)))
-Yit=double(f_value(1,1));
-num=k;
-disp(['µÚ0µã£¬¸Ãµã¾«¶È£¨ÌÝ¶ÈÄ£Öµ£©Îª£º',num2str(double(e_now(1,1))), ...
-    '£¬¸Ãµãº¯ÊýÖµÎª£º',num2str(double(f_value(1,1)))]);
-while(e_now(k+1,1)>e)   
+    while t < max_iter
+        t = t + 1; % æ›´æ–°è¿­ä»£è®¡æ•°
+        g = num_grad(func, x, n); % ä½¿ç”¨ä¸­å¿ƒå·®åˆ†æ³•è®¡ç®—æ¢¯åº¦
+        m = beta1 * m + (1 - beta1) * g; % æ›´æ–°ä¸€é˜¶åŠ¨é‡
+        v = beta2 * v + (1 - beta2) * (g.^2); % æ›´æ–°äºŒé˜¶åŠ¨é‡
+        m_hat = m / (1 - beta1^t); % åå·®ä¿®æ­£çš„ä¸€é˜¶åŠ¨é‡
+        v_hat = v / (1 - beta2^t); % åå·®ä¿®æ­£çš„äºŒé˜¶åŠ¨é‡
         
-        %ArmijoÐÍÏßÐÔËÑË÷¼ÆËã²½³¤a
-        a=1;
-        Armijo_x=xs(:,k+1)+a*d;
-        ftta=vpa(subs(ftt,x,Armijo_x));
-        if(ftta>vpa(subs(ftt+0.4*a*gradient(ftt, x)'*d,x,xs(:,k+1))))
-            a=Armijo_b;
-            while(1)
-                if(ftta<=vpa(subs(ftt+0.4*a*gradient(ftt, x)'*d,x,xs(:,k+1))))
-                    break
-                else
-                    a=a*Armijo_o;
-                    Armijo_x=xs(:,k+1)+a*d;
-                    ftta=vpa(subs(ftt,x,Armijo_x));
-                end
-            end
+        % æ›´æ–°å‚æ•°
+        x = x - alpha * m_hat ./ (sqrt(v_hat) + epsilon);
+        x_traj = [x_traj; x]; % ä¿å­˜è½¨è¿¹
+        f_vals = [f_vals; func(x, n)]; % ä¿å­˜å‡½æ•°å€¼
+        
+        % æ£€æŸ¥æ”¶æ•›æ¡ä»¶
+        if norm(g) < tol
+            break;
         end
-
-        m = beta1*m + (1-beta1).*d;  % ³åÁ¿Æ½¾ù
-        v = beta2*v + (1-beta2).*(d.*d); % ÌÝ¶ÈÆ½·½ºÍÆ½¾ù
-        
-        % ½øÐÐÆ«²îÐ£Õý
-%         beta1_t = 1/9;
-%         beta2_t = 1/999;
-        beta1_t = (beta1)^(k+1);
-        beta2_t = (beta2)^(k+1);
-        m_ = m./(1 - beta1_t);
-        v_ = v./(1 - beta2_t);
-        s=a./sqrt((v_).^0.5 + epsilon).*m_;
-%         xs(:,k+2)=xs(:,k+1)+s;%¼ÆËãÏÂÒ»¸ö¼ÆËãµã
-%         s=a./((v_).^0.5 + epsilon).*m_;
-        xs(:,k+2)=xs(:,k+1)+s;%¼ÆËãÏÂÒ»¸ö¼ÆËãµã
-        y=vpa(subs(gradient(ftt, x),x,xs(:,k+2))-subs(gradient(ftt, x),x,xs(:,k+1)));
-        d=double(subs(-gradient(ftt, x),x,xs(:,k+2)));
-        e_now(k+2,1)=norm(vpa(subs(gradient(ftt, x),x,xs(:,k+2))));
-        f_value(k+2,1)=vpa(subs(ftt,x,xs(:,k+2)));
-
-        disp(['µÚ',num2str(k+1),'µã£¬¸Ãµã¾«¶È£¨ÌÝ¶ÈÄ£Öµ£©Îª£º',num2str(double(e_now(k+2,1))), ...
-            '£¬¸Ãµãº¯ÊýÖµÎª£º',num2str(double(f_value(k+2,1)))]);
-        Yit=[Yit;double(f_value(k+2,1))];
-        k=k+1;
-        num=[num;k];
+    end
+    
+    % è¾“å‡ºæœ€ä¼˜å€¼åŠè½¨è¿¹
+    x_opt = x;
+    f_val = func(x, n);
+    iter = t;
 end
-%         num=[num;k+1];
-e_end=norm(double(subs(gradient(ftt, x),x,xs(:,end))));
-x_best=xs(:,end);
-f_value(end+1,1)=vpa(subs(ftt,x,xs(:,end)));
-plot(num,Yit);
-xlabel('µü´ú´ÎÊý');
-ylabel('º¯ÊýÖµ');
-title('AdamËã·¨');
-% figure(1);plot(f_value);title('º¯ÊýÖµ±ä»¯');
-% figure(2);plot(e_now);title('ÌÝ¶ÈÄ£Öµ±ä»¯');
-disp(['¹²',num2str(k+1),'´Îµü´ú£¬',num2str(k+2),'¸öµã£¬×îÖÕ½á¹û¾«¶È£¨ÌÝ¶ÈÄ£Öµ£©Îª£º',num2str(double(e_now(end,1))), ...
-    '£¬×îÖÕÈ¡µÃµÄº¯ÊýÖµÎª£º',num2str(double(f_value(end,1)))]);
-disp('×îÖÕÈ¡µÃµÄ¼«Ð¡ÖµµãÎª£º');
-disp(['AdamËã·¨'])
-disp(x_best);

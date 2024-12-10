@@ -12,7 +12,7 @@ alpha_init = 1.0; % 初始步长
 disp('测试 Perturbed Quadratic function (func1):');
 x0_1 = [0.5, 0.5]; % 初始点
 n1 = length(x0_1); % 输入向量长度
-[x_opt_1, f_val_1, iter_1, f_vals_1] = steepest_descent(@func1, x0_1, n1, tol, max_iter, sigma1, rho, alpha_init);
+[x_opt_1, f_val_1, iter_1, f_vals_1, x_traj_1] = steepest_descent(@func1, x0_1, n1, tol, max_iter, sigma1, rho, alpha_init);
 disp(['最优解: ', num2str(x_opt_1)]);
 disp(['目标函数最优值: ', num2str(f_val_1)]);
 disp(['迭代次数: ', num2str(iter_1)]);
@@ -22,7 +22,7 @@ fprintf('\n');
 disp('测试 Raydan 1 function (func2):');
 x0_2 = [1, 1]; % 初始点
 n2 = length(x0_2); % 输入向量长度
-[x_opt_2, f_val_2, iter_2, f_vals_2] = steepest_descent(@func2, x0_2, n2, tol, max_iter, sigma1, rho, alpha_init);
+[x_opt_2, f_val_2, iter_2, f_vals_2, x_traj_2] = steepest_descent(@func2, x0_2, n2, tol, max_iter, sigma1, rho, alpha_init);
 disp(['最优解: ', num2str(x_opt_2)]);
 disp(['目标函数最优值: ', num2str(f_val_2)]);
 disp(['迭代次数: ', num2str(iter_2)]);
@@ -32,7 +32,7 @@ fprintf('\n');
 disp('测试 Quadratic QF2 function (func3):');
 x0_3 = [0.5, 0.5]; % 初始点
 n3 = length(x0_3); % 输入向量长度
-[x_opt_3, f_val_3, iter_3, f_vals_3] = steepest_descent(@func3, x0_3, n3, tol, max_iter, sigma1, rho, alpha_init);
+[x_opt_3, f_val_3, iter_3, f_vals_3, x_traj_3] = steepest_descent(@func3, x0_3, n3, tol, max_iter, sigma1, rho, alpha_init);
 disp(['最优解: ', num2str(x_opt_3)]);
 disp(['目标函数最优值: ', num2str(f_val_3)]);
 disp(['迭代次数: ', num2str(iter_3)]);
@@ -42,7 +42,7 @@ fprintf('\n');
 disp('测试 Diagonal 1 function (func4):');
 x0_4 = [0.5, 0.5]; % 初始点
 n4 = length(x0_4); % 输入向量长度
-[x_opt_4, f_val_4, iter_4, f_vals_4] = steepest_descent(@func4, x0_4, n4, tol, max_iter, sigma1, rho, alpha_init);
+[x_opt_4, f_val_4, iter_4, f_vals_4, x_traj_4] = steepest_descent(@func4, x0_4, n4, tol, max_iter, sigma1, rho, alpha_init);
 disp(['最优解: ', num2str(x_opt_4)]);
 disp(['目标函数最优值: ', num2str(f_val_4)]);
 disp(['迭代次数: ', num2str(iter_4)]);
@@ -52,7 +52,7 @@ fprintf('\n');
 disp('测试 Full Hessian FH2 function (func5):');
 x0_5 = [1, 1]; % 初始点
 n5 = length(x0_5); % 输入向量长度
-[x_opt_5, f_val_5, iter_5, f_vals_5] = steepest_descent(@func5, x0_5, n5, tol, max_iter, sigma1, rho, alpha_init);
+[x_opt_5, f_val_5, iter_5, f_vals_5, x_traj_5] = steepest_descent(@func5, x0_5, n5, tol, max_iter, sigma1, rho, alpha_init);
 disp(['最优解: ', num2str(x_opt_5)]);
 disp(['目标函数最优值: ', num2str(f_val_5)]);
 disp(['迭代次数: ', num2str(iter_5)]);
@@ -61,7 +61,7 @@ fprintf('\n');
 %% 函数值-迭代次数曲线图绘制
 % 绘制 Perturbed Quadratic function 函数值-迭代次数曲线
 figure;
-plot(0:iter_1, f_vals_1, '-o'); % 横坐标从 0 开始
+plot(1:iter_1, f_vals_1, '-o'); % 横坐标从 0 开始
 xlim([0 iter_1]);
 title('Perturbed Quadratic function: 函数值迭代曲线图');
 xlabel('迭代次数');
@@ -70,7 +70,7 @@ grid on;
 
 % 绘制 Raydan 1 function 函数值-迭代次数曲线
 figure;
-plot(0:iter_2, f_vals_2, '-o'); % 横坐标从 0 开始
+plot(1:iter_2, f_vals_2, '-o'); % 横坐标从 0 开始
 xlim([0 iter_2]);
 title('Raydan 1 function: 函数值迭代曲线图');
 xlabel('迭代次数');
@@ -79,7 +79,7 @@ grid on;
 
 % 绘制 Quadratic QF2 function 函数值-迭代次数曲线
 figure;
-plot(0:iter_3, f_vals_3, '-o'); % 横坐标从 0 开始
+plot(1:iter_3, f_vals_3, '-o'); % 横坐标从 0 开始
 xlim([0 iter_3]);
 title('Quadratic QF2 function: 函数值迭代曲线图');
 xlabel('迭代次数');
@@ -88,7 +88,7 @@ grid on;
 
 % 绘制 Diagonal 1 function 函数值-迭代次数曲线
 figure;
-plot(0:iter_4, f_vals_4, '-o'); % 横坐标从 0 开始
+plot(1:iter_4, f_vals_4, '-o'); % 横坐标从 0 开始
 xlim([0 iter_4]);
 title('Diagonal 1 function: 函数值迭代曲线图');
 xlabel('迭代次数');
@@ -97,7 +97,7 @@ grid on;
 
 % 绘制 Full Hessian FH2 function 函数值-迭代次数曲线
 figure;
-plot(0:iter_5, f_vals_5, '-o'); % 横坐标从 0 开始
+plot(1:iter_5, f_vals_5, '-o'); % 横坐标从 0 开始
 xlim([0 iter_5]);
 title('Quadratic QF1 function: 函数值迭代曲线图');
 xlabel('迭代次数');
@@ -113,13 +113,6 @@ contour(x1_grid, y1_grid, z1_grid, 50); % 绘制等高线
 hold on;
 scatter(x0_1(1), x0_1(2), 100, 'r', 'filled', 'DisplayName', 'Start'); % 初始点
 scatter(x_opt_1(1), x_opt_1(2), 100, 'g', 'filled', 'DisplayName', 'Optimal'); % 最优点
-% 计算迭代轨迹
-x_traj_1 = x0_1; % 初始化轨迹数组
-for i = 2:length(f_vals_1)
-    grad_1 = num_grad(@func1, x_traj_1(end, :), n1); % 计算梯度
-    alpha_1 = line_search(@func1, x_traj_1(end, :), grad_1, n1, sigma1, rho, alpha_init); % 确定步长
-    x_traj_1 = [x_traj_1; x_traj_1(end, :) - alpha_1 * grad_1]; % 更新轨迹
-end
 plot(x_traj_1(:, 1), x_traj_1(:, 2), 'k-o', 'DisplayName', 'Path'); % 迭代路径
 legend;
 title('Perturbed Quadratic function: 等高线路径迭代图');
@@ -128,19 +121,12 @@ grid on;
 
 % 绘制等高线迭代图 (Raydan 1 function)
 figure;
-[x2_grid, y2_grid] = meshgrid(-1:0.01:1, -1:0.01:1); % 定义网格
+[x2_grid, y2_grid] = meshgrid(-2:0.01:2, -2:0.01:2); % 定义网格
 z2_grid = arrayfun(@(x2, y2) func2([x2, y2], n2), x2_grid, y2_grid); % 计算网格上的函数值
 contour(x2_grid, y2_grid, z2_grid, 50); % 绘制等高线
 hold on;
 scatter(x0_2(1), x0_2(2), 100, 'r', 'filled', 'DisplayName', 'Start'); % 初始点
 scatter(x_opt_2(1), x_opt_2(2), 100, 'g', 'filled', 'DisplayName', 'Optimal'); % 最优点
-% 计算迭代轨迹
-x_traj_2 = x0_2; % 初始化轨迹数组
-for i = 2:length(f_vals_2)
-    grad_2 = num_grad(@func2, x_traj_2(end, :), n2); % 计算梯度
-    alpha_2 = line_search(@func2, x_traj_2(end, :), grad_2, n2, sigma1, rho, alpha_init); % 确定步长
-    x_traj_2 = [x_traj_2; x_traj_2(end, :) - alpha_2 * grad_2]; % 更新轨迹
-end
 plot(x_traj_2(:, 1), x_traj_2(:, 2), 'k-o', 'DisplayName', 'Path'); % 迭代路径
 legend;
 title('Raydan 1 function: 等高线路径迭代图');
@@ -149,19 +135,12 @@ grid on;
 
 % 绘制等高线迭代图 (Quadratic QF2 function)
 figure;
-[x3_grid, y3_grid] = meshgrid(0:0.01:2, -1:0.01:2); % 定义网格
+[x3_grid, y3_grid] = meshgrid(0:0.01:2, 0:0.01:2); % 定义网格
 z3_grid = arrayfun(@(x3, y3) func3([x3, y3], n3), x3_grid, y3_grid); % 计算网格上的函数值
 contour(x3_grid, y3_grid, z3_grid, 50); % 绘制等高线
 hold on;
 scatter(x0_3(1), x0_3(2), 100, 'r', 'filled', 'DisplayName', 'Start'); % 初始点
 scatter(x_opt_3(1), x_opt_3(2), 100, 'g', 'filled', 'DisplayName', 'Optimal'); % 最优点
-% 计算迭代轨迹
-x_traj_3 = x0_3; % 初始化轨迹数组
-for i = 2:length(f_vals_3)
-    grad_3 = num_grad(@func3, x_traj_3(end, :), n3); % 计算梯度
-    alpha_3 = line_search(@func3, x_traj_3(end, :), grad_3, n3, sigma1, rho, alpha_init); % 确定步长
-    x_traj_3 = [x_traj_3; x_traj_3(end, :) - alpha_3 * grad_3]; % 更新轨迹
-end
 plot(x_traj_3(:, 1), x_traj_3(:, 2), 'k-o', 'DisplayName', 'Path'); % 迭代路径
 legend;
 title('Quadratic QF2 function: 等高线路径迭代图');
@@ -176,13 +155,6 @@ contour(x4_grid, y4_grid, z4_grid, 50); % 绘制等高线
 hold on;
 scatter(x0_4(1), x0_4(2), 100, 'r', 'filled', 'DisplayName', 'Start'); % 初始点
 scatter(x_opt_4(1), x_opt_4(2), 100, 'g', 'filled', 'DisplayName', 'Optimal'); % 最优点
-% 计算迭代轨迹
-x_traj_4 = x0_4; % 初始化轨迹数组
-for i = 2:length(f_vals_4)
-    grad_4 = num_grad(@func4, x_traj_4(end, :), n4); % 计算梯度
-    alpha_4 = line_search(@func4, x_traj_4(end, :), grad_4, n4, sigma1, rho, alpha_init); % 确定步长
-    x_traj_4 = [x_traj_4; x_traj_4(end, :) - alpha_4 * grad_4]; % 更新轨迹
-end
 plot(x_traj_4(:, 1), x_traj_4(:, 2), 'k-o', 'DisplayName', 'Path'); % 迭代路径
 legend;
 title('Diagonal 1 function: 等高线路径迭代图');
@@ -197,13 +169,6 @@ contour(x5_grid, y5_grid, z5_grid, 50); % 绘制等高线
 hold on;
 scatter(x0_5(1), x0_5(2), 100, 'r', 'filled', 'DisplayName', 'Start'); % 初始点
 scatter(x_opt_5(1), x_opt_5(2), 100, 'g', 'filled', 'DisplayName', 'Optimal'); % 最优点
-% 计算迭代轨迹
-x_traj_5 = x0_5; % 初始化轨迹数组
-for i = 2:length(f_vals_5)
-    grad_5 = num_grad(@func5, x_traj_5(end, :), n5); % 计算梯度
-    alpha_5 = line_search(@func5, x_traj_5(end, :), grad_5, n5, sigma1, rho, alpha_init); % 确定步长
-    x_traj_5 = [x_traj_5; x_traj_5(end, :) - alpha_5 * grad_5]; % 更新轨迹
-end
 plot(x_traj_5(:, 1), x_traj_5(:, 2), 'k-o', 'DisplayName', 'Path'); % 迭代路径
 legend;
 title('Full Hessian FH2 function: 等高线路径迭代图');
