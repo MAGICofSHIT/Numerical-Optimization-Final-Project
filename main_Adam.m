@@ -3,8 +3,8 @@ clc; clear; close all;
 %% 通用参数设置
 tol = 1e-6; % 收敛精度
 max_iter = 100000; % 最大迭代次数
-alpha = 0.001; % 学习率
-beta1 = 0.9; % 一阶动量衰减系数
+alpha = 0.1; % 学习率
+beta1 = 0.2; % 一阶动量衰减系数
 beta2 = 0.999; % 二阶动量衰减系数
 epsilon = 1e-8; % 防止除零的小值
 
@@ -51,7 +51,7 @@ fprintf('\n');
 
 % Full Hessian FH2 function 测试
 disp('测试 Full Hessian FH2 function (func5):');
-x0_5 = [1, 1]; % 初始点
+x0_5 = [0.01, 0.01]; % 初始点
 n5 = length(x0_5); % 输入向量长度
 [x_opt_5, f_val_5, iter_5, f_vals_5, x_traj_5] = Adam(@func5, x0_5, n5, tol, max_iter, alpha, beta1, beta2, epsilon);
 disp(['最优解: ', num2str(x_opt_5)]);
@@ -112,7 +112,7 @@ figure;
 z1_grid = arrayfun(@(x1, y1) func1([x1, y1], n1), x1_grid, y1_grid); % 计算函数值
 contour(x1_grid, y1_grid, z1_grid, 50); % 绘制等高线
 hold on;
-plot(x_traj_1(:, 1), x_traj_1(:, 2), 'b-o', 'DisplayName', 'Path');
+plot(x_traj_1(:, 1), x_traj_1(:, 2), 'k-o', 'DisplayName', 'Path');
 scatter(x0_1(1), x0_1(2), 100, 'r', 'filled', 'DisplayName', 'Start');
 scatter(x_opt_1(1), x_opt_1(2), 100, 'g', 'filled', 'DisplayName', 'Optimal');
 legend;
@@ -126,7 +126,7 @@ figure;
 z2_grid = arrayfun(@(x2, y2) func2([x2, y2], n2), x2_grid, y2_grid);
 contour(x2_grid, y2_grid, z2_grid, 50);
 hold on;
-plot(x_traj_2(:, 1), x_traj_2(:, 2), 'b-o', 'DisplayName', 'Path');
+plot(x_traj_2(:, 1), x_traj_2(:, 2), 'k-o', 'DisplayName', 'Path');
 scatter(x0_2(1), x0_2(2), 100, 'r', 'filled', 'DisplayName', 'Start');
 scatter(x_opt_2(1), x_opt_2(2), 100, 'g', 'filled', 'DisplayName', 'Optimal');
 legend;
@@ -140,7 +140,7 @@ figure;
 z3_grid = arrayfun(@(x3, y3) func3([x3, y3], n3), x3_grid, y3_grid);
 contour(x3_grid, y3_grid, z3_grid, 50);
 hold on;
-plot(x_traj_3(:, 1), x_traj_3(:, 2), 'b-o', 'DisplayName', 'Path');
+plot(x_traj_3(:, 1), x_traj_3(:, 2), 'k-o', 'DisplayName', 'Path');
 scatter(x0_3(1), x0_3(2), 100, 'r', 'filled', 'DisplayName', 'Start');
 scatter(x_opt_3(1), x_opt_3(2), 100, 'g', 'filled', 'DisplayName', 'Optimal');
 legend;
@@ -154,7 +154,7 @@ figure;
 z4_grid = arrayfun(@(x4, y4) func4([x4, y4], n4), x4_grid, y4_grid);
 contour(x4_grid, y4_grid, z4_grid, 50);
 hold on;
-plot(x_traj_4(:, 1), x_traj_4(:, 2), 'b-o', 'DisplayName', 'Path');
+plot(x_traj_4(:, 1), x_traj_4(:, 2), 'k-o', 'DisplayName', 'Path');
 scatter(x0_4(1), x0_4(2), 100, 'r', 'filled', 'DisplayName', 'Start');
 scatter(x_opt_4(1), x_opt_4(2), 100, 'g', 'filled', 'DisplayName', 'Optimal');
 legend;
@@ -164,11 +164,11 @@ grid on;
 
 % 绘制等高线迭代图 (Full Hessian FH2 function)
 figure;
-[x5_grid, y5_grid] = meshgrid(0:0.01:7, -10:0.01:7);
+[x5_grid, y5_grid] = meshgrid(-1:0.01:10, -10:0.01:2);
 z5_grid = arrayfun(@(x5, y5) func5([x5, y5], n5), x5_grid, y5_grid);
 contour(x5_grid, y5_grid, z5_grid, 50);
 hold on;
-plot(x_traj_5(:, 1), x_traj_5(:, 2), 'b-o', 'DisplayName', 'Path');
+plot(x_traj_5(:, 1), x_traj_5(:, 2), 'k-o', 'DisplayName', 'Path');
 scatter(x0_5(1), x0_5(2), 100, 'r', 'filled', 'DisplayName', 'Start');
 scatter(x_opt_5(1), x_opt_5(2), 100, 'g', 'filled', 'DisplayName', 'Optimal');
 legend;

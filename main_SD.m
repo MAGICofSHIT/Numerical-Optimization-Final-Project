@@ -2,7 +2,7 @@ clc; clear; close all;
 
 %% 通用参数设置
 tol = 1e-6; % 收敛精度
-max_iter = 10000000000; % 最大迭代次数
+max_iter = 100000; % 最大迭代次数
 sigma1 = 0.1; % Armijo条件参数
 rho = 0.5; % 步长缩减因子
 alpha_init = 1.0; % 初始步长
@@ -50,7 +50,7 @@ fprintf('\n');
 
 % Full Hessian FH2 function 测试
 disp('测试 Full Hessian FH2 function (func5):');
-x0_5 = [1, 1]; % 初始点
+x0_5 = [0.01, 0.01]; % 初始点
 n5 = length(x0_5); % 输入向量长度
 [x_opt_5, f_val_5, iter_5, f_vals_5, x_traj_5] = steepest_descent(@func5, x0_5, n5, tol, max_iter, sigma1, rho, alpha_init);
 disp(['最优解: ', num2str(x_opt_5)]);
@@ -163,7 +163,7 @@ grid on;
 
 % 绘制等高线迭代图 (Full Hessian FH2 function)
 figure;
-[x5_grid, y5_grid] = meshgrid(0:0.01:7, -10:0.01:7); % 定义网格
+[x5_grid, y5_grid] = meshgrid(-1:0.01:10, -10:0.01:2); % 定义网格
 z5_grid = arrayfun(@(x5, y5) func5([x5, y5], n5), x5_grid, y5_grid); % 计算网格上的函数值
 contour(x5_grid, y5_grid, z5_grid, 50); % 绘制等高线
 hold on;
