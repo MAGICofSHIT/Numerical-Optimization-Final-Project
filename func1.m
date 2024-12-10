@@ -7,8 +7,8 @@ function f = func1(x, n)
 
     temp = zeros(1,2);
     for i = 1:n
-        temp(1,1) = temp(1,1) + i * x(i)^2;
-        temp(1,2) = temp(1,2) + 0.1 * x(i)^2;
+        temp(1) = temp(1) + i * x(i)^2;
+        temp(2) = temp(2) + 0.1 * x(i);
     end
-    f = sum(temp);
+    f = temp(1) + temp(2)^2;
 end

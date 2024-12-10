@@ -6,7 +6,7 @@ function grad = num_grad(func, x, n)
 % 返回值:
 %   grad: 梯度向量
 
-    h = 1e-7; % 差分步长
+    h = 1e-10; % 差分步长
     grad = zeros(size(x)); % 初始化梯度向量
 
     for i = 1:n
