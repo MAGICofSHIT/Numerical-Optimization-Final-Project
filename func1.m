@@ -1,11 +1,14 @@
 function f = func1(x, n)
-% Generalized Schaffer Function
+% Perturbed Quadratic function
 % x: 输入向量
 % n: 向量长度
 % 返回值:
 %   f: 标量函数值
 
-    % 计算函数值
-    sum_sqr = sum(x.^2); % x_i^2 的和
-    f = 0.5 + (sin(sqrt(sum_sqr)).^2 - 0.5) / (1 + 0.001 * sum_sqr).^2;
+    temp = zeros(1,2);
+    for i = 1:n
+        temp(1,1) = temp(1,1) + i * x(i)^2;
+        temp(1,2) = temp(1,2) + 0.1 * x(i)^2;
+    end
+    f = sum(temp);
 end
