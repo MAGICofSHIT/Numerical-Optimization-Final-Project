@@ -18,7 +18,7 @@ function [x_opt, f_val, iter, f_vals, x_traj] = ADAI(func, x0, n, tol, max_iter,
 %   x_traj: 参数的轨迹
 
     % 初始化变量
-    beta1 = [];
+    one = ones(1, n);
     m = zeros(1, n); % 一阶动量初始化
     v = zeros(1, n); % 二阶动量初始化
     x = x0; % 当前参数
@@ -32,8 +32,8 @@ function [x_opt, f_val, iter, f_vals, x_traj] = ADAI(func, x0, n, tol, max_iter,
         v = beta2 * v + (1 - beta2) * (g.^2); % 更新二阶动量
         v_hat = v / (1 - beta2^t); % 偏差修正的二阶动量
         v_mean = mean(v_hat);
-        beta1 = [beta1; clip(1 - beta0 * v_hat / v_mean, 0, 1 - epsilon)];
-        m = beta1(t) * m + (1 - beta1(t)) * g; % 更新一阶动量
+        beta1 = clip(one - beta0 * v_hat / v_mean, 0, 1 - epsilon);
+        m = beta1 .* m + (one - beta1) .* g; % 更新一阶动量
         m_hat = m / (1 - prod(beta1)); % 偏差修正的一阶动量
         
         % 更新参数

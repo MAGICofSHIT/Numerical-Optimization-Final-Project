@@ -8,6 +8,5 @@ function f = func2(x, n)
     f = 0;
     for i = 1:n
         f = f + 0.1 * i * (exp(x(i)) - x(i));
-        % f = f + 100 * (x(i+1) - x(i)^2)^2 + (1 - x(i))^2;
     end
 end
