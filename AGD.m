@@ -1,4 +1,4 @@
-function [x_opt, f_val, iter, f_vals, x_traj] = ADGD(func, x0, n, tol, max_iter, lambda0)
+function [x_opt, f_val, iter, f_vals, x_traj] = AGD(func, x0, n, tol, max_iter, lambda0)
 % 自适应梯度下降算法
 % func: 目标函数句柄
 % x0: 初始点
