@@ -20,7 +20,7 @@ function [x_opt, f_val, iter, f_vals, x_traj] = AGD(func, x0, n, tol, max_iter, 
     f_vals = [func(x0, n)]; % 记录函数值
     x_traj = x0; % 记录路径
 
-    for k = 1:max_iter
+    for k = 2:max_iter
         % 计算梯度
         grad_prev = num_grad(func, x_prev, n);
         grad_curr = num_grad(func, x_curr, n);
