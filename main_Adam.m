@@ -64,7 +64,7 @@ fprintf('\n');
 %% 函数值-迭代次数曲线图绘制
 % 绘制 Perturbed Quadratic function 函数值-迭代次数曲线
 figure;
-plot(1:iter_1, f_vals_1, '-o'); % 横坐标从 0 开始
+plot(0:iter_1, f_vals_1, '-o'); % 横坐标从 0 开始
 xlim([0 iter_1]);
 title('Perturbed Quadratic function: 函数值迭代曲线图');
 xlabel('迭代次数');
@@ -73,7 +73,7 @@ grid on;
 
 % 绘制 Raydan 1 function 函数值-迭代次数曲线
 figure;
-plot(1:iter_2, f_vals_2, '-o'); % 横坐标从 0 开始
+plot(0:iter_2, f_vals_2, '-o'); % 横坐标从 0 开始
 xlim([0 iter_2]);
 title('Raydan 1 function: 函数值迭代曲线图');
 xlabel('迭代次数');
@@ -82,7 +82,7 @@ grid on;
 
 % 绘制 Diagonal 8 function 函数值-迭代次数曲线
 figure;
-plot(1:iter_3, f_vals_3, '-o'); % 横坐标从 0 开始
+plot(0:iter_3, f_vals_3, '-o'); % 横坐标从 0 开始
 xlim([0 iter_3]);
 title('Diagonal 8 function: 函数值迭代曲线图');
 xlabel('迭代次数');
@@ -91,7 +91,7 @@ grid on;
 
 % 绘制 Quadratic QF1 function 函数值-迭代次数曲线
 figure;
-plot(1:iter_4, f_vals_4, '-o'); % 横坐标从 0 开始
+plot(0:iter_4, f_vals_4, '-o'); % 横坐标从 0 开始
 xlim([0 iter_4]);
 title('Quadratic QF1 function: 函数值迭代曲线图');
 xlabel('迭代次数');
@@ -100,7 +100,7 @@ grid on;
 
 % 绘制 Full Hessian FH2 function 函数值-迭代次数曲线
 figure;
-plot(1:iter_5, f_vals_5, '-o'); % 横坐标从 0 开始
+plot(0:iter_5, f_vals_5, '-o'); % 横坐标从 0 开始
 xlim([0 iter_5]);
 title('Quadratic QF1 function: 函数值迭代曲线图');
 xlabel('迭代次数');

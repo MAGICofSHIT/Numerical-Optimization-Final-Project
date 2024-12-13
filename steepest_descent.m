@@ -17,7 +17,7 @@ function [x, f_val, iter, f_vals, x_traj] = steepest_descent(func, x0, n, tol, m
 
     x = x0;          % 初始化变量
     iter = 0;        % 初始化迭代计数器
-    f_vals = [];     % 用于存储每次迭代的函数值
+    f_vals = [func(x0, n)];     % 用于存储每次迭代的函数值
     x_traj = x;      % 记录轨迹
 
     while iter < max_iter

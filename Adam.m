@@ -22,7 +22,7 @@ function [x_opt, f_val, iter, f_vals, x_traj] = Adam(func, x0, n, tol, max_iter,
     v = zeros(1, n); % 二阶动量初始化
     x = x0; % 当前参数
     t = 0; % 迭代计数
-    f_vals = []; % 记录函数值
+    f_vals = [func(x0, n)]; % 记录函数值
     x_traj = x; % 记录轨迹
     
     while t < max_iter
