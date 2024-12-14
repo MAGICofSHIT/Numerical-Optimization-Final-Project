@@ -13,8 +13,8 @@ y3_range = [-0.5, 1.5];
 x4_range = [-2, 2];
 y4_range = [-1, 2];
 
-x5_range = [-1, 1];
-y5_range = [-1, 1];
+x5_range = [-1, 4];
+y5_range = [-1, 1.5];
 
 resolution = 100; % 分辨率
 
@@ -36,7 +36,7 @@ plot_3d(@func4, x4_range, y4_range, resolution, 'Quadratic QF1 function');
 
 % 绘制 func3 的三维图像
 figure;
-plot_3d(@func5, x5_range, y5_range, resolution, 'Partial Perturbed Quadratic function');
+plot_3d(@func5, x5_range, y5_range, resolution, 'Generalized Griewank function');
 
 function plot_3d(func, x_range, y_range, resolution, title_str)
     % 生成网格点
