@@ -137,7 +137,7 @@ grid on;
 
 % 绘制等高线迭代图 (Diagonal 8 function)
 figure;
-[x3_grid, y3_grid] = meshgrid(0:0.01:1.5, -0.5:0.01:1.5);
+[x3_grid, y3_grid] = meshgrid(0:0.01:1.5, 0:0.01:1.5);
 z3_grid = arrayfun(@(x3, y3) func3([x3, y3], n3), x3_grid, y3_grid); % 计算网格上的函数值
 contour(x3_grid, y3_grid, z3_grid, 50); % 绘制等高线
 hold on;

@@ -9,10 +9,10 @@ alpha_init = 0.5; % 初始步长
 
 %% 初始点设置 
 x0_1 = [0.5 0.5];
-x0_2 = [1 1];
-x0_3 = [1 1];
-x0_4 = [1 1];z`
-x0_5 = [0.5 0.5 0.5 0.5 0.5];
+x0_2 = [3 3 3 3 3 ];
+x0_3 = [0 0];
+x0_4 = [1 1];
+x0_5 = [0.5 0.5];
 
 %% 函数测试以及结果打印
 % Perturbed Quadratic function 测试
@@ -123,7 +123,7 @@ grid on;
 % 
 % % 绘制等高线迭代图 (Raydan 1 function)
 % figure;
-% [x2_grid, y2_grid] = meshgrid(-2:0.01:2, -2:0.01:2); % 定义网格
+% [x2_grid, y2_grid] = meshgrid(-4:0.01:6, -4:0.01:6); % 定义网格
 % z2_grid = arrayfun(@(x2, y2) func2([x2, y2], n2), x2_grid, y2_grid); % 计算网格上的函数值
 % contour(x2_grid, y2_grid, z2_grid, 50); % 绘制等高线
 % hold on;
@@ -137,7 +137,7 @@ grid on;
 % 
 % % 绘制等高线迭代图 (Diagonal 8 function)
 % figure;
-% [x3_grid, y3_grid] = meshgrid(0:0.01:1.5, -0.5:0.01:1.5);
+% [x3_grid, y3_grid] = meshgrid(-3:0.01:2, -3:0.01:2);
 % z3_grid = arrayfun(@(x3, y3) func3([x3, y3], n3), x3_grid, y3_grid); % 计算网格上的函数值
 % contour(x3_grid, y3_grid, z3_grid, 50); % 绘制等高线
 % hold on;

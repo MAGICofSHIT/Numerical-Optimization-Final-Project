@@ -1,20 +1,20 @@
 clc,clear,close all
 
 % 定义函数的取值范围
-x1_range = [-1, 1];
-y1_range = [-1, 1];
+x1_range = 10*[-1, 1];
+y1_range = 10*[-1, 1];
 
-x2_range = [-2, 2];
-y2_range = [-2, 2];
+x2_range = [-5, 5];
+y2_range = [-5, 5];
 
-x3_range = [0, 1.5];
-y3_range = [-0.5, 1.5];
+x3_range = [-3, 2];
+y3_range = [-3, 2];
 
-x4_range = [-2, 2];
-y4_range = [-1, 2];
+x4_range = 10*[-2, 2];
+y4_range = 10*[-2, 2];
 
-x5_range = [-1, 4];
-y5_range = [-1, 1.5];
+x5_range = 10*[-1, 1];
+y5_range = 10*[-1, 1];
 
 resolution = 100; % 分辨率
 
@@ -53,5 +53,5 @@ function plot_3d(func, x_range, y_range, resolution, title_str)
     colorbar;
     title(title_str);
     xlabel('x1'); ylabel('x2'); zlabel('f(x)');
-    view(45, 30); % 设置视角
+    view(-45, 30); % 设置视角
 end
