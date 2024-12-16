@@ -12,7 +12,7 @@ epsilon = 1e-8; % 防止除零的小值
 x0_1 = [0.5 0.5];
 x0_2 = [1 1];
 x0_3 = [1 1];
-x0_4 = [1 1 1 1 1 1 1 1 1 1];
+x0_4 = [1 1];
 x0_5 = [0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5];
 
 %% 函数测试以及结果打印
@@ -108,7 +108,7 @@ ylabel('函数值');
 grid on;
 
 %% 等高线路径迭代图绘制
-% 绘制等高线路径迭代图 (Perturbed Quadratic function)
+% % 绘制等高线路径迭代图 (Perturbed Quadratic function)
 % figure;
 % [x1_grid, y1_grid] = meshgrid(-1:0.01:1, -1:0.01:1); % 定义网格
 % z1_grid = arrayfun(@(x1, y1) func1([x1, y1], n1), x1_grid, y1_grid); % 计算函数值
